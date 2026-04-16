@@ -30,7 +30,7 @@ from PySide6.QtWidgets import (
 from PySide6.QtGui import QPixmap, QFont
 import serial
 import serial.tools.list_ports
-
+import os
 import json
 import time
 from PySide6.QtCore import Qt, QTimer, Signal, QObject
@@ -52,6 +52,7 @@ SUCCESS = "#22C55E"
 WARNING = "#EAB308"
 DANGER = "#EF4444"
 BORDER = "#E5E7EB"
+TEXTE_TITRE = "#1F2937"
 
 
 FONT_FAMILY = "Arial"
@@ -472,6 +473,7 @@ class EtatMachine:
 
     def __init__(self):
         self.etat = "Aucun état reçu"
+
         self.difficulte_active = "fac"
         self.valeurs_difficulte = {
             "fac": {"temps": 10, "force": 30, "vitesse": 30},
@@ -676,7 +678,16 @@ class PremierePage(PageAvecEtat):
         # Zone image principale
         # ----------------------------
         self.label_image = QLabel()
-        pixmap = QPixmap("vert.png")
+        # pixmap = QPixmap("vert.png")
+
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        chemin_image = os.path.join(base_dir, "vert.png")
+        pixmap = QPixmap(chemin_image)
+
+        print("Fichier Python :", __file__)
+        print("Dossier du script :", base_dir)
+        print("Chemin image :", chemin_image)
+        print("Image existe :", os.path.exists(chemin_image))
 
         if pixmap.isNull():
             self.label_image.setText("Image introuvable")
@@ -694,7 +705,13 @@ class PremierePage(PageAvecEtat):
         # ----------------------------
         self.label_titre = QLabel("GROCHET")
         self.label_titre.setAlignment(Qt.AlignCenter)
-
+        self.label_titre.setStyleSheet(
+            f"""
+        QLabel {{
+            color: {TEXTE_TITRE};
+        }}
+        """
+        )
         police_titre = QFont()
         police_titre.setPointSize(42)
         police_titre.setBold(True)
@@ -1021,7 +1038,14 @@ class PagePersonnalisation(PageAvecEtat):
         # region IMAGE
         self.label_logo = QLabel()
         self.label_logo.setAlignment(Qt.AlignCenter)
-        pixmap = QPixmap("Logo_sans_fond.png")
+        # pixmap = QPixmap("Logo_sans_fond.png")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        chemin_logo = os.path.join(base_dir, "Logo_sans_fond.png")
+        pixmap = QPixmap(chemin_logo)
+
+        print("Chemin logo :", chemin_logo)
+        print("Logo existe :", os.path.exists(chemin_logo))
+
         self.label_logo.setPixmap(pixmap)
         pixmap_redimensionne = pixmap.scaled(
             320, 320, Qt.KeepAspectRatio, Qt.SmoothTransformation
@@ -1033,6 +1057,13 @@ class PagePersonnalisation(PageAvecEtat):
         # region TITRES
         # Titre page
         self.label_titre = QLabel("PERSONNALISATION")
+        self.label_titre.setStyleSheet(
+            f"""
+        QLabel {{
+            color: {TEXTE_TITRE};
+        }}
+        """
+        )
         self.label_titre.setAlignment(Qt.AlignCenter)
         police_titre = QFont()
         police_titre.setPointSize(42)
@@ -1763,6 +1794,13 @@ class PageDebogage(PageAvecEtat):
         # region TITRES
 
         self.label_titre = QLabel("DÉBOGAGE")
+        self.label_titre.setStyleSheet(
+            f"""
+        QLabel {{
+            color: {TEXTE_TITRE};
+        }}
+        """
+        )
         self.label_titre.setAlignment(Qt.AlignCenter)
         police_titre = QFont()
         police_titre.setPointSize(42)
