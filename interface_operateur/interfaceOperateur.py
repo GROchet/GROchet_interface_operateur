@@ -2129,12 +2129,12 @@ class PageDebogage(PageAvecEtat):
         self.modif_pince_fermee_active = False
 
         self.spin_pince_ouverte = QSpinBox()
-        self.spin_pince_ouverte.setRange(0, 100000)
+        self.spin_pince_ouverte.setRange(-10000, 10000)
         self.spin_pince_ouverte.setValue(100)
         self.spin_pince_ouverte.setStyleSheet(style_spinbox)
 
         self.spin_pince_fermee = QSpinBox()
-        self.spin_pince_fermee.setRange(0, 100000)
+        self.spin_pince_fermee.setRange(-10000, 10000)
         self.spin_pince_fermee.setValue(20)
         self.spin_pince_fermee.setStyleSheet(style_spinbox)
 
@@ -2150,12 +2150,12 @@ class PageDebogage(PageAvecEtat):
         self.modif_valeurmax_y_active = False
 
         self.spin_valeurmax_x = QSpinBox()
-        self.spin_valeurmax_x.setRange(0, 1000000)
+        self.spin_valeurmax_x.setRange(-10000, 10000)
         self.spin_valeurmax_x.setValue(500)
         self.spin_valeurmax_x.setStyleSheet(style_spinbox)
 
         self.spin_valeurmax_y = QSpinBox()
-        self.spin_valeurmax_y.setRange(0, 1000000)
+        self.spin_valeurmax_y.setRange(-10000, 10000)
         self.spin_valeurmax_y.setValue(500)
         self.spin_valeurmax_y.setStyleSheet(style_spinbox)
 
